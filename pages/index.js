@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({display}) {
   return (
     <>
       <Head>
@@ -48,6 +48,7 @@ export default function Home() {
             height={37}
             priority
           />
+          <div style={{display: 'flex'}}><h1 className={styles.display}>{display}</h1></div>
         </div>
 
         <div className={styles.grid}>
@@ -111,4 +112,13 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+    if (context.preview) {
+        return { props: { display: "I say, \"Hello, hello, hello\"" } };
+    } else {
+        context.res.setHeader('Cache-Control', 'max-age=60, s-maxage=60, stale-while-revalidate=540');
+        return { props: { display: "I don't know why you say, \"Goodbye\"" } };
+    }
 }
