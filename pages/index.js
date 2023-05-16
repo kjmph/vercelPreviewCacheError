@@ -118,7 +118,7 @@ export async function getServerSideProps(context) {
     if (context.preview) {
         return { props: { display: "I say, \"Hello, hello, hello\"" } };
     } else {
-        context.res.setHeader('Cache-Control', 'max-age=60, s-maxage=60, stale-while-revalidate=540');
+        context.res.setHeader('Cache-Control', 'max-age=60, s-maxage=60, stale-while-revalidate=120');
         return { props: { display: "I don't know why you say, \"Goodbye\"" } };
     }
 }
